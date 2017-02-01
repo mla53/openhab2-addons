@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2014-2016 openHAB UG (haftungsbeschraenkt) and others.
+ * Copyright (c) 2014-2016 by the respective copyright holders.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.mysensors.internal.handler;
+package org.openhab.binding.mysensors.handler;
 
 import static org.openhab.binding.mysensors.MySensorsBindingConstants.*;
 
@@ -302,7 +303,8 @@ public class MySensorsThingHandler extends BaseThingHandler implements MySensors
                         String channel = CHANNEL_MAP.get(msg.getSubType());
 
                         switch (channel) {
-                            case CHANNEL_STATUS:
+                        	case CHANNEL_ARMED:
+                        	case CHANNEL_STATUS:
                                 if (msg.getMsg().equals("1")) {
                                     updateState(channel, OnOffType.ON);
                                 } else if (msg.getMsg().equals("0")) {
@@ -310,7 +312,6 @@ public class MySensorsThingHandler extends BaseThingHandler implements MySensors
                                 }
                                 break;
 
-                            case CHANNEL_ARMED:
                             case CHANNEL_TRIPPED:
                             case CHANNEL_LOCK_STATUS:
                                 if (msg.getMsg().equals("1")) {
@@ -371,7 +372,6 @@ public class MySensorsThingHandler extends BaseThingHandler implements MySensors
                             case CHANNEL_FLOW:
                             case CHANNEL_VOLUME:
                             case CHANNEL_LEVEL:
-                            case CHANNEL_CO2_LEVEL:
                             case CHANNEL_PH:
                                 updateState(channel, new DecimalType(msg.getMsg()));
                                 break;
